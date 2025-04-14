@@ -6,17 +6,17 @@ on:
   workflow_dispatch:
 
 env:
-  GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
-  PACKAGE_NAME: codium
-  PAGE_NAME: vscodium-repo
-  PROJECT_NAME: VSCodium
-  PROJECT_URL: https://github.com/VSCodium/vscodium
-  R2_BUCKET_NAME: vscodium-repo
-  R2_BUCKET_URL: https://r2repo.vscodium.dev
+  GH_REPOSITORIES: zokugun/MrCode
+  PACKAGE_NAME: mrcode
+  PAGE_NAME: mrcode-repo
+  PROJECT_NAME: MrCode
+  PROJECT_URL: https://github.com/zokugun/MrCode
+  R2_BUCKET_NAME: mrcode-repo
+  R2_BUCKET_URL: https://r2repo.mrcode.zokugun.org
   REPO_ARCH_DEB: amd64 arm64 armhf
   REPO_ARCH_RPM: x86_64 aarch64 armv7hl
-  REPO_NAME: vscodium
-  REPO_URL: https://repo.vscodium.dev
+  REPO_NAME: mrcode
+  REPO_URL: https://repo.mrcode.zokugun.org
 
 jobs:
   build:
