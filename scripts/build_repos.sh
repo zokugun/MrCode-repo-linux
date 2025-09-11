@@ -2,6 +2,8 @@
 
 set -e
 
+. ./scripts/utils.sh
+
 GH_HOST="${GH_HOST:-github.com}"
 GH_REPOSITORIES="${GH_REPOSITORIES:-VSCodium/vscodium VSCodium/vscodium-insiders}"
 REPO_ARCH_DEB="${REPO_ARCH_DEB:-amd64 arm64 armhf}"
@@ -107,6 +109,8 @@ fi
 if [[ "${GOT_DEB}" == "yes" ]]; then
   echo "== Scanning DEB packages and creating the repository"
 
+  liquify "distributions" "config/deb"
+
   mkdir -p pkgs/deb/conf
   cp config/deb/distributions pkgs/deb/conf/distributions
   touch pkgs/deb/conf/option
@@ -115,3 +119,8 @@ if [[ "${GOT_DEB}" == "yes" ]]; then
 
   echo "DEB repository built"
 fi
+
+# Add package files to liquidjs context file
+PACKAGE_LIST=$( find pkgs -type f \( -name "*.deb" -o -name "*.rpm" \) -exec basename {} \; | jq -Rsc 'split("\n")[:-1] | sort' )
+TMP_JSON=$( jq --argjson packages "${PACKAGE_LIST}" '.packages = $packages' "./liquid.json" )
+echo "${TMP_JSON}" > "./liquid.json"
